@@ -1,17 +1,7 @@
 #include <iostream>
+#include "utils.h"
 
 using namespace std;
-
-const double PI = 3.14;
-
-double circleArea(double);
-void timesTwo(double&, double&);
-
-void swap(double& x, double& y){
-    double temp = x;
-    x = y;
-    y = temp;
-}
 
 int main(){
     double radius = 3.0;
@@ -29,15 +19,9 @@ int main(){
     y = 2;
     swap(x, y);
     
+    int a = 3;
+    int b = 6;
+    swap(a, b);
+    
     return 0;
-}
-
-double circleArea(double r){
-    double area = PI * r * r;
-    return area;
-}
-
-void timesTwo(double& x, double& y){
-    x = x * 2.0;
-    y = y * 2.0;
 }
