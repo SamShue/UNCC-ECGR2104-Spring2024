@@ -1,27 +1,38 @@
 #include "student.h"
 
+int Student::numStudents = 0;
+
 Student::Student(){
     name = "Unassigned";
+    this->id = 800000000 + numStudents;
+    numStudents++;
 }
 
-Student::Student(string name, int id, double gpa){
+Student::Student(string name, double gpa){
     this->name = name;
-    setId(id);
     setGpa(gpa);
+    
+    this->id = 800000000 + numStudents;
+    numStudents++;
 }
 
-Student::Student(string name, int id, double g[], const unsigned int SIZE){
-    this->name = n;
-    setId(id);
+Student::Student(string name, double g[], const unsigned int SIZE){
+    this->name = name;
     computeGpa(g, SIZE);
+    this->id = 800000000 + numStudents;
+    numStudents++;
 }
 
 void Student::computeGpa(double grades[], const unsigned int& SIZE){
+    gpa = average(grades, SIZE);
+}
+
+double Student::average(double a[], const unsigned int& SIZE){
     double sum = 0.0;
     for(int i = 0; i < SIZE; i++)
-        sum += grades[i];
+        sum += a[i];
     
-    gpa = sum/(double)SIZE;
+    return sum/(double)SIZE;
 }
 
 void Student::setGpa(const double& gpa){
@@ -36,14 +47,6 @@ void Student::setGpa(const double& gpa){
 
 double Student::getGpa() const {
     return this->gpa;
-}
-
-void Student::setId(const int& i){
-    if(i < 800000000){
-        id = -1;
-    } else {
-        id = i;
-    }
 }
 
 int Student::getId() const {
