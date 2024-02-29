@@ -35,3 +35,7 @@ void Complex::operator+=(Complex rhs){
 Complex Complex::operator-(Complex rhs){
     return Complex(this->real - rhs.real, this->imag - rhs.imag);
 }
+
+bool Complex::operator==(Complex rhs){
+    return (this->real == rhs.real) && (this->imag == rhs.imag);
+}

@@ -16,6 +16,12 @@ int main(){
     
     Complex c4 = c1 - c2;
     
+    if(c1 == c1){
+        cout << "Equal" << endl;
+    } else {
+        cout << "Not Equal" << endl;
+    }
+    
     c3.print();
     c4.print();
     

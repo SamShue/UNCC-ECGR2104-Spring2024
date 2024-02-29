@@ -18,8 +18,8 @@ Complex Complex::add(Complex c){
 
 Complex Complex::operator+(Complex c){
     Complex r(0.0, 0.0);
-    r.real = this->real + c.real;
-    r.imag = this->imag + c.imag;
+    r.real = real + c.real;
+    r.imag = imag + c.imag;
     return r;
 }
 

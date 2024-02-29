@@ -16,6 +16,7 @@ struct Complex {
     Complex operator+(int rhs);
     void operator+=(Complex rhs);
     Complex operator-(Complex rhs);
+    bool operator==(Complex rhs);
 };
 
 #endif
