@@ -12,6 +12,33 @@ class vector {
         cout << a << endl;
     }
     
+    ~vector(){
+        cout << "Destructor called!" << endl;
+        delete[] a;
+    }
+    
+    vector(const vector& v){
+        cout << "Copy Constructor called!" << endl;
+        allocatedSize = v.allocatedSize;
+        nextIndex = v.nextIndex;
+        a = new int[allocatedSize];
+        for(int i = 0; i < nextIndex; i++){
+            a[i] = v.a[i];
+        }
+    }
+    
+    void operator=(const vector& v){
+        cout << "Assignment Operator Override called!" << endl;
+        delete[] a;
+        
+        allocatedSize = v.allocatedSize;
+        nextIndex = v.nextIndex;
+        a = new int[allocatedSize];
+        for(int i = 0; i < nextIndex; i++){
+            a[i] = v.a[i];
+        }
+    }
+    
     void push_back(int d){
         if(nextIndex < allocatedSize){
             a[nextIndex] = d;
@@ -67,24 +94,33 @@ class vector {
     int allocatedSize;
 };
 
-int main(){
-    
+void createsProblems(){
     vector v;
     
     v.push_back(1);
     v.push_back(3);
     v.push_back(5);
-    v.push_back(7);
-    
-    v.pop_back();
-    v.pop_back();
-    v.pop_back();
     
     v.at(0) = 9;
+    
+    vector v2 = v;
+    
+    v2.at(0) = 2;
+    
+    v = v2;
     
     for(int i = 0; i < v.size(); i++){
         cout << v.at(i) << endl;
     }
+    
+    
+}
+
+int main(){
+    
+    createsProblems();
+    createsProblems();
+    createsProblems();
     
     return 0;
 }

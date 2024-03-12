@@ -7,7 +7,27 @@ struct Node {
     Node* next;
 };
 
-void push_back(Node*& head, int data){
+class SinglyLinkedList{
+    public:
+    SinglyLinkedList();
+    
+    void push_back(int data);
+    void pop_back();
+    int& at(int index);
+    int size();
+    
+    private:
+    Node* head;
+    int numElements;
+};
+
+SinglyLinkedList::SinglyLinkedList(){
+    head = nullptr;
+    numElements = 0;
+}
+
+void SinglyLinkedList::push_back(int data){
+    numElements++;
     
     if(head == nullptr){
         cout << "Adding first element to list" << endl;
@@ -28,11 +48,13 @@ void push_back(Node*& head, int data){
     (currentNode->next)->data = data;
 }
 
-void pop_back(Node*& head){
+void SinglyLinkedList::pop_back(){
     
     if(head == nullptr){
         return;
     }
+    
+    numElements--;
     
     if(head->next == nullptr){
         delete head;
@@ -41,7 +63,7 @@ void pop_back(Node*& head){
     }
     
     Node* currentNode = head;
-    while(currentNode->next->next != nullptr){
+    while((*currentNode).next->next != nullptr){
         cout << "Moving through list..." << endl;
         currentNode = currentNode->next;
     }
@@ -50,7 +72,7 @@ void pop_back(Node*& head){
     currentNode->next = nullptr;
 }
 
-int& at(Node* head, int index){
+int& SinglyLinkedList::at(int index){
     Node* currentNode = head;
     int i = 0;
     while(i < index){
@@ -60,7 +82,9 @@ int& at(Node* head, int index){
     return currentNode->data;
 }
 
-int size(Node* head){
+int SinglyLinkedList::size(){
+    return numElements;
+    /*
     int i = 0;
     Node* currentNode = head;
     while(currentNode != nullptr){
@@ -68,24 +92,22 @@ int size(Node* head){
         i++;
     }
     return i;
+    */
 }
 
 int main(){
     
-    Node* head = nullptr;
+    SinglyLinkedList sll;
     
-    push_back(head, 5);
-    push_back(head, 3);
-    push_back(head, 8);
-    push_back(head, 7);
+    sll.push_back(5);
+    sll.push_back(3);
+    sll.push_back(8);
+    sll.push_back(7);
     
-    pop_back(head);
-    pop_back(head);
-    pop_back(head);
-    pop_back(head);
+    sll.pop_back();
     
-    for(int i = 0; i < size(head); i++){
-        cout << at(head, i) << endl;
+    for(int i = 0; i < sll.size(); i++){
+        cout << sll.at(i) << endl;
     }
     
     return 0;

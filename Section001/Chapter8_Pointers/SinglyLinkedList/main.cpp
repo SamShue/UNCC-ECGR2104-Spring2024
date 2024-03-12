@@ -7,7 +7,28 @@ struct Node {
     Node* next;
 };
 
-void push_back(Node*& head, int data){
+class SinglyLinkedList{
+    public:
+    SinglyLinkedList();
+    
+    void push_back(int data);
+    void pop_back();
+    int& at(int index);
+    int size();
+    
+    private:
+    Node* head;
+    int listSize;
+};
+
+SinglyLinkedList::SinglyLinkedList(){
+    head = nullptr;
+    listSize = 0;
+}
+
+void SinglyLinkedList::push_back(int data){
+    listSize++;
+    
     // Empty list case:
     if(head == nullptr){
         cout << "Adding first node to empty list" << endl;
@@ -28,12 +49,14 @@ void push_back(Node*& head, int data){
     (currentNode->next)->next = nullptr;
 }
 
-void pop_back(Node*& head){
+void SinglyLinkedList::pop_back(){
     
     // Empty list case:
     if(head == nullptr){
         return;
     }
+    
+    listSize--;
     
     // One element case:
     if(head->next == nullptr){
@@ -52,7 +75,7 @@ void pop_back(Node*& head){
     currentNode->next = nullptr;
 }
 
-int& at(Node* head, int index){
+int& SinglyLinkedList::at(int index){
     Node* currentNode = head;
     int i = 0;
     while(i < index){
@@ -63,7 +86,9 @@ int& at(Node* head, int index){
     return currentNode->data;
 }
 
-int size(Node* head){
+int SinglyLinkedList::size(){
+    return listSize;
+    /*
     Node* currentNode = head;
     int i = 0;
     while(currentNode != nullptr){
@@ -72,21 +97,21 @@ int size(Node* head){
     }
     
     return i;
+    */
 }
 
 int main(){
+    SinglyLinkedList sll;
     
-    Node* head = nullptr;
+    sll.push_back(5);
+    sll.push_back(2);
+    sll.push_back(3);
+    sll.push_back(8);
     
-    push_back(head, 5);
-    push_back(head, 2);
-    push_back(head, 3);
-    push_back(head, 8);
+    sll.pop_back();
     
-    pop_back(head);
-    
-    for(int i = 0; i < size(head); i++){
-        cout << at(head, i) << endl;
+    for(int i = 0; i < sll.size(); i++){
+        cout << sll.at(i) << endl;
     }
     
     return 0;
