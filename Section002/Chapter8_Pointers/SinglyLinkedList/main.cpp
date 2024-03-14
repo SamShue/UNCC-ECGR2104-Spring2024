@@ -10,11 +10,14 @@ struct Node {
 class SinglyLinkedList{
     public:
     SinglyLinkedList();
+    ~SinglyLinkedList();
+    SinglyLinkedList(const SinglyLinkedList& sll);
+    void operator=(const SinglyLinkedList& sll);
     
     void push_back(int data);
     void pop_back();
-    int& at(int index);
-    int size();
+    int& at(int index) const;
+    int size() const;
     
     private:
     Node* head;
@@ -24,6 +27,42 @@ class SinglyLinkedList{
 SinglyLinkedList::SinglyLinkedList(){
     head = nullptr;
     numElements = 0;
+}
+
+SinglyLinkedList::~SinglyLinkedList(){
+    cout << "Destructor called!" << endl;
+    
+    while(head != nullptr){
+        Node* nextElement = head->next;
+        delete head;
+        head = nextElement;
+    }
+}
+
+SinglyLinkedList::SinglyLinkedList(const SinglyLinkedList& sll){
+    cout << "Copy Constructor called!" << endl;
+    head = nullptr;
+    numElements = 0;
+    
+    for(int i = 0; i < sll.size(); i++){
+        push_back(sll.at(i));
+    }
+}
+
+void SinglyLinkedList::operator=(const SinglyLinkedList& sll){
+    cout << "Assignment Operator Override called!" << endl;
+    while(head != nullptr){
+        Node* nextElement = head->next;
+        delete head;
+        head = nextElement;
+    }
+    
+    head = nullptr;
+    numElements = 0;
+    
+    for(int i = 0; i < sll.size(); i++){
+        push_back(sll.at(i));
+    }
 }
 
 void SinglyLinkedList::push_back(int data){
@@ -72,7 +111,7 @@ void SinglyLinkedList::pop_back(){
     currentNode->next = nullptr;
 }
 
-int& SinglyLinkedList::at(int index){
+int& SinglyLinkedList::at(int index) const{
     Node* currentNode = head;
     int i = 0;
     while(i < index){
@@ -82,7 +121,7 @@ int& SinglyLinkedList::at(int index){
     return currentNode->data;
 }
 
-int SinglyLinkedList::size(){
+int SinglyLinkedList::size() const{
     return numElements;
     /*
     int i = 0;
@@ -95,8 +134,7 @@ int SinglyLinkedList::size(){
     */
 }
 
-int main(){
-    
+void createsProblems(){
     SinglyLinkedList sll;
     
     sll.push_back(5);
@@ -106,9 +144,23 @@ int main(){
     
     sll.pop_back();
     
+    SinglyLinkedList sll2 = sll;
+    
+    sll2.push_back(9);
+    sll2.push_back(11);
+    
+    sll = sll2;
+    
     for(int i = 0; i < sll.size(); i++){
         cout << sll.at(i) << endl;
     }
+}
+
+int main(){
+    
+    createsProblems();
+    createsProblems();
+    createsProblems();
     
     return 0;
 }
