@@ -15,13 +15,14 @@ class Question {
     virtual void askQuestion() = 0;
     
     int getPointsScored(){
-        return pointValue * isCorrect;
+        return isCorrect*pointValue;
     }
     
     protected:
+    int pointValue;
     string text;
     bool isCorrect;
-    int pointValue;
+    
 };
 
 class TrueFalseQuestion : public Question {
@@ -36,23 +37,20 @@ class TrueFalseQuestion : public Question {
         char userInput;
         cin >> userInput;
         
-        bool userAnswer = false;
-        if(userInput == 'T' || userInput == 't'){
-            userAnswer = true;
-        }
+        bool userAnswer = (userInput == 'T' || userInput == 't');
         
         if(userAnswer == correctAnswer){
             isCorrect = true;
         }
     }
     
-    private:
+    protected:
     bool correctAnswer;
 };
 
 class MathQuestion : public Question {
     public:
-    MathQuestion(string text, double correctAnswer, int pointValue) : Question(text, pointValue) {
+    MathQuestion(string text, double correctAnswer, int pointValue) : Question(text, pointValue){
         this->correctAnswer = correctAnswer;
     }
     
@@ -66,12 +64,11 @@ class MathQuestion : public Question {
         }
     }
     
-    private:
+    protected:
     double correctAnswer;
 };
 
 int main(){
-    
     vector<Question*> quiz;
     
     quiz.push_back(new TrueFalseQuestion("Joe Biden hates C++.", true, 10));
@@ -84,8 +81,7 @@ int main(){
         totalScore += quiz.at(i)->getPointsScored();
     }
     
-    cout << "Points Scored: " << totalScore << endl;
-    
+    cout << "Total Score: " << totalScore << endl;
     
     /*
     Question* question1 = new TrueFalseQuestion("Joe Biden hates C++.", true, 10);
@@ -97,7 +93,7 @@ int main(){
     question3->askQuestion();
     
     cout << "Points Scored: " << question1->getPointsScored() + 
-                                 question2->getPointsScored() +
+                                 question2->getPointsScored() + 
                                  question3->getPointsScored() << endl;
     */
     return 0;
